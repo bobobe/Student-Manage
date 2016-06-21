@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/j2ee?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>./User.hbm.xml</value>
+				<value>./Admin.hbm.xml</value>
+				<value>./Book.hbm.xml</value>
+				<value>./Class.hbm.xml</value>
+				<value>./Card.hbm.xml</value>
+				<value>./Dorm.hbm.xml</value>
+				<value>./Fee.hbm.xml</value></list>
+		</property>
+	</bean>
+	
+	<!--  用户自定义bean-->
+	
+	<!-- 学生登录bean -->
+	<bean id="LoginAct" class="com.action.LoginAction">
+            <property name="us" ref="usimpl"></property>
+    </bean>
+    <bean id="usimpl" class="com.service.impl.UserServiceImpl">
+        <property name="userdao" ref="udimpl"></property>
+    </bean>
+    <bean id="udimpl" class="com.dao.impl.UserDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    <!-- 管理员登录bean -->
+    <bean id="SuperLoginAct" class="com.action.SuperLoginAction">
+            <property name="as" ref="asimpl"></property>
+    </bean>
+    <bean id="asimpl" class="com.service.impl.AdminServiceImpl">
+        <property name="admindao" ref="adimpl"></property>
+    </bean>
+    <bean id="adimpl" class="com.dao.impl.AdminDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    <!-- 注册bean -->
+    <bean id="RegisterAct" class="com.action.RegisterAction">
+            <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 用户信息bean -->
+    <bean id="UserInfoAct" class="com.action.UserInfoAction">
+            <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 退出登录bean -->
+    <bean id="LoginOutAct" class="com.action.LoginOutAction">
+    </bean>
+    
+    <!-- 返回所欲学生列表 -->
+    <bean id="ShowAllStudentAct" class="com.action.ShowAllStudentAction">
+         <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 搜索学生 -->
+    <bean id="SearchStudentAct" class="com.action.SearchStudentAction" scope="prototype"><!-- 这里必须加一个 scope="prototype"，要不然每次请求都使用同一个bean，那么请求参数都一样-->
+         <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 删除学生 -->
+    <bean id="DelStudentAct" class="com.action.DelStudentAction">
+         <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 添加学生 -->
+    <bean id="AddStudentAct" class="com.action.AddStudentAction">
+         <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 修改学生信息 -->
+    <bean id="UpdateStudentAct" class="com.action.UpdateStudentAction" scope="prototype">
+         <property name="us" ref="usimpl"></property><!-- 注册直接用userservice就可以了，没必要再新建一个service -->
+    </bean>
+    
+    <!-- 返回学分信息 -->
+    <bean id="ShowCreditInfoAct" class="com.action.ShowCreditInfoAction" scope="prototype">
+    </bean>
+    
+    <!-- 根据班级查找学生信息 -->
+    <bean id="ShowClassInfoAct" class="com.action.ShowClassInfoAction" scope="prototype">
+         <property name="us" ref="usimpl"></property>
+    </bean>
+    
+    <!-- 根据宿舍查找学生信息 -->
+    <bean id="ShowDormInfoAct" class="com.action.ShowDormInfoAction" scope="prototype">
+         <property name="us" ref="usimpl"></property>
+    </bean>
+    
+    <!-- 返回费用信息 -->
+    <bean id="ShowCostInfoAct" class="com.action.ShowCostInfoAction" scope="prototype">
+    </bean>
+    
+    <!-- 返回全部费用 -->
+    <bean id="ShowAllFeeAct" class="com.action.ShowAllFeeAction">
+            <property name="fs" ref="fsimpl"></property>
+    </bean>
+    <bean id="fsimpl" class="com.service.impl.FeeServiceImpl">
+        <property name="feedao" ref="fdimpl"></property>
+    </bean>
+    <bean id="fdimpl" class="com.dao.impl.FeeDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    <!-- 修改学生缴费状态 -->
+    <bean id="HandInFeeAct" class="com.action.HandInFeeAction">
+            <property name="fs" ref="fsimpl"></property>
+    </bean>
+    
+    <!-- bookbean -->
+    <bean id="ShowAllBookAct" class="com.action.ShowAllBookAction">
+            <property name="bs" ref="bsimpl"></property>
+    </bean>
+    <bean id="bsimpl" class="com.service.impl.BookServiceImpl">
+        <property name="bookdao" ref="bdimpl"></property>
+    </bean>
+    <bean id="bdimpl" class="com.dao.impl.BookDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    <!-- classbean -->
+    <bean id="ShowAllClassAct" class="com.action.ShowAllClassAction">
+            <property name="cs" ref="csimpl"></property>
+    </bean>
+    <bean id="csimpl" class="com.service.impl.ClassServiceImpl">
+        <property name="classdao" ref="cdimpl"></property>
+    </bean>
+    <bean id="cdimpl" class="com.dao.impl.ClassDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    <!-- cardbean -->
+    <bean id="SearchCardAct" class="com.action.SearchCardAction">
+            <property name="cs" ref="cdsimpl"></property>
+    </bean>
+    <bean id="cdsimpl" class="com.service.impl.CardServiceImpl">
+        <property name="carddao" ref="cddimpl"></property>
+    </bean>
+    <bean id="cddimpl" class="com.dao.impl.CardDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+    <!-- dormbean -->
+    <bean id="ShowAllDormAct" class="com.action.ShowAllDormAction">
+            <property name="ds" ref="dsimpl"></property>
+    </bean>
+    <bean id="dsimpl" class="com.service.impl.DormServiceImpl">
+        <property name="dormdao" ref="ddimpl"></property>
+    </bean>
+    <bean id="ddimpl" class="com.dao.impl.DormDaoImpl">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    
+</beans>

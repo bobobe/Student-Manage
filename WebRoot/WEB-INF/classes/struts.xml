@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="ssh1" extends="struts-default" namespace="/">
+      <action name="login" class="LoginAct">
+          <result name="SUCCESS">/index.jsp</result>
+          <result name="FAILURE">/login.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="loginout" class="LoginOutAct">
+          <result name="SUCCESS">/login.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="superlogin" class="SuperLoginAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="FAILURE">/superlogin.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="register" class="RegisterAct">
+          <result name="SUCCESS">/superlogin.jsp</result>
+          <result name="FAILURE">/register.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="userinfo" class="UserInfoAct">
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="showallstudent" class="ShowAllStudentAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="showallbook" class="ShowAllBookAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="showallclass" class="ShowAllClassAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="searchstudent" class="SearchStudentAct">
+          <result name="SHOWFORM">/admin.jsp</result>
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="delstudent" class="DelStudentAct">
+          <result name="SUCCESS" type = "chain">
+               <param name="actionName">showallstudent</param><!-- 这里是请求转发，即删除了之后再重新显示 -->
+          </result>
+          <result name="INPUT">/index.jsp</result>
+      </action>
+      <action name="updatestudent" class="UpdateStudentAct">
+          <result name="SUCCESS" type = "redirect">/studentinfo2.jsp</result>
+          <result name="SHOWFORM">/studentinfo2.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="addstudent" class="AddStudentAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showcardinfo" class="SearchCardAct">
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showcreditinfo" class="ShowCreditInfoAct">
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showcostinfo" class="ShowCostInfoAct">
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showalldorm" class="ShowAllDormAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showallfee" class="ShowAllFeeAct">
+          <result name="SUCCESS">/admin.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="handinfee" class="HandInFeeAct">
+          <result name="SUCCESS">/studentinfo2.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showclassinfo" class="ShowClassInfoAct">
+          <result name="SUCCESS">/classinfo.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+      <action name="showdorminfo" class="ShowDormInfoAct">
+          <result name="SUCCESS">/dorminfo.jsp</result>
+          <result name="INPUT">/failure.jsp</result>
+      </action>
+</package>
+
+</struts>    

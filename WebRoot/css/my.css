@@ -1,0 +1,83 @@
+.div1{
+	padding-left: 120px;
+	padding-top: 2px;
+	 background-color:#989898;
+	 height:70px;
+
+}
+.div2{
+	width:70%;
+	margin:0 auto;
+	height:40px;
+    border-bottom: 1px dashed green;
+    padding-top: 50px;
+}
+.div3{
+	width:70%;
+	height:700px;
+	margin:auto;
+	border-bottom: 1px solid black;
+
+}
+.div4{
+	 height:50px;
+	 background-color: #989898;
+}
+.boke{
+       font-family: arial;
+       font-weight: bolder;
+       font-style: italic;
+       font-size: 30px;
+       color:white;
+}
+.img{
+	position:absolute;
+	top: 0px;
+	left:0px;
+	width: 10px;
+	
+}
+.wenzhang{
+	color:black;
+	font-size: 20px;
+	font-family: arial;
+}
+.xie{
+	z-index: 1;
+	display:block;
+	position:absolute;
+	right:190px;
+	top:130px;
+	font-size:20px;
+}
+.img1{
+	position: absolute;
+	right:190px;
+	top:112px;
+	width: 80px;
+	height:100px;
+}
+.shan{
+	position: absolute;
+	right:230px;
+}
+.bian{
+	position: absolute;
+	right: 190px;
+}
+.denglu{
+	position: absolute;
+	right:60px;
+	top:10px;
+	color: white;
+}
+.zhuce{
+	position: absolute;
+	right:20px;
+	top:10px;
+	color:white;
+}
+#img-size{
+	width: 30px;
+	height: 30px;
+}
